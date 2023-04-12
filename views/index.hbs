@@ -10,23 +10,31 @@
       <button class="btn btn-info" onclick="copy()">Copy</button>
     </div>
   </div>
-  <script>
-    function copy() {
-      const copyText = document.getElementById("output");
-      console.log('copy')
-      copyText.select();
-      copyText.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(copyText.value);
-      alert("已複製到剪貼簿");
-    }
-  </script>
+  
 
   {{else}}
   <div class="d-flex justify-content-center">
     <form class="m-3" action="/" method="POST">
-      <input type="url" name="url" placeholder="Paste URL here" style="width:15rem; height:3rem" value="">
-      <button class="btn btn-primary" type="submit">轉換</a>
+      <input type="url" id="input" name="url" placeholder="Paste URL here" style="width:15rem; height:3rem" value="">
+      <button class="btn btn-primary" type="submit" onclick="check()">轉換</a>
     </form>
   </div>
   {{/if}}
 </div>
+
+<script>
+  function check() {
+    const inputText = document.getElementById("input")
+    if(!inputText.value){
+      alert('欄位不得為空')
+    }
+  }
+  function copy() {
+    const copyText = document.getElementById("output");
+    console.log('copy')
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+    alert("已複製到剪貼簿");
+  }
+</script>
