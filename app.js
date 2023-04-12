@@ -26,11 +26,20 @@ app.post('/', (req, res) => {
         origin: req.headers.origin,
         shortUrl: data.shortUrl,
       }))
+    .catch(error => console.error(error))
   }
 })
 
-app.get('/:shorturl', (req, res) => {
-  
+app.get('/:shortUrl', (req, res) => {
+  const { shortUrl } = req.params
+  shorter.findOne({ shortUrl })
+    .then(data => {
+      if(!data){
+        res.render('error')
+      }
+      res.redirect(data.userUrl)
+    })
+    .catch(error => console.error(error))
 })
 
 app.listen(3000, () => {
