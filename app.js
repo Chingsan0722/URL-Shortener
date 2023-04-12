@@ -16,10 +16,13 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const shortUrl = require('./shortUrl')
   if(!req.body.url){
-   return res.redirect('/')
+    // 若使用者沒有輸入內容，就按下了送出鈕，需要防止表單送出並提示使用者
+    alert("內容不得為空")
+    return res.redirect('/')
   }else{
     shorter.findOne({userUrl: req.body.url})
     .then(data =>
+      // 輸入相同網址時，產生一樣的縮址
       data ? data : shorter.create({ shortUrl: `${shortUrl}`, userUrl: req.body.url }))
     .then(data =>
       res.render("index", {
